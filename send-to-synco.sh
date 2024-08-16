@@ -38,7 +38,7 @@ function generic_sync {
   # -a (archive): This option preserves the permissions, timestamps, symbolic links, and other file attributes.
   # -v (verbose): This option shows the progress of the operation.
   # --ignore-existing: This option ensures that existing files on the server will not be overwritten. Only files that don't exist on the server will be copied.
-  rsync -av --ignore-existing "$HOME/synco/$type/ shane@$NIGHTINGALE:~/synco/$type/
+  rsync -av --ignore-existing "$HOME/synco/$type/" shane@$NIGHTINGALE:~/synco/$type/
 }
 
 books
