@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from fastapi import FastAPI, File, UploadFile, HTTPException, Query
+from fastapi import FastAPI, File, FileResponse, UploadFile, HTTPException, Query
 import os
 from pathlib import Path
 
@@ -56,6 +56,16 @@ async def diff(file: UploadFile = File(...)):
     missing_filenames = list(server_filenames - user_filenames)
 
     return {"diff": missing_filenames}
+
+@app.get("/download")
+async def download_file(file_path: str):
+    full_path = server_base_dir / Path(file_path)
+
+    if not full_path.exists() or not full_path.is_file():
+        raise HTTPException(status_code=404, detail="File not found")
+
+    # Serve the file for download
+    return FileResponse(path=full_path, filename=full_path.name)
 
 if __name__ == '__main__':
     import uvicorn
