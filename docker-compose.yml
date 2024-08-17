@@ -1,0 +1,12 @@
+services:
+  synco:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: run-stage
+    ports:
+      - "8000:8000"
+    volumes:
+      - ~/synco:/app/data
+    environment:
+      - PYTHONPATH=/app/src
