@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY ./server/ .
 
-RUN useradd -m synco_user
+RUN groupadd -r synco_user && useradd -r -g synco_user synco_user
 USER synco_user
 
 # Run stage
@@ -20,6 +20,7 @@ COPY --from=build-stage /usr/local/lib/python3.11/site-packages /usr/local/lib/p
 
 COPY --from=build-stage /app /app
 
+RUN groupadd -r synco_user && useradd -r -g synco_user synco_user
 USER synco_user
 
 ENV PYTHONPATH=/app/src

@@ -10,3 +10,4 @@ services:
       - ~/synco:/app/data
     environment:
       - PYTHONPATH=/app/src
+    user: synco_user 
