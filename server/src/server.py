@@ -1,25 +1,22 @@
 #!/usr/bin/python3
-from fastapi import FastAPI, File, UploadFile, HTTPException, Query
+from fastapi import FastAPI, File, Form, UploadFile, HTTPException, Query
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
 import os
 from pathlib import Path
 
 app = FastAPI()
 server_base_dir = Path("/app/data")
 
-class WriteFileRequest(BaseModel):
-    file_path: str
-    content: str
-
 @app.post("/upload")
-async def write_file(request: WriteFileRequest):
-    file_path = server_base_dir / request.file_path
+async def write_file(file_path: str = Form(...), file: UploadFile = File(...)):
+    file_path = server_base_dir / file_path
     file_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(file_path, 'w') as file:
-        file.write(request.content)
-    return {"message": "File written successfully!"}
+    
+    with open(file_path, 'wb') as f:
+        content = await file.read()
+        f.write(content)
 
+    return {"message": "File written successfully!"}
 @app.delete("/delete")
 async def delete_file(file_path: str):
     file_path = server_base_dir / file_path
