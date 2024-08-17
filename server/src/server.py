@@ -21,21 +21,18 @@ async def delete_file(file_path: str):
 
 @app.get("/list")
 async def list_files(
-    directory_path: str,
+    directory: str,
     limit: int = Query(10, ge=1),
     offset: int = Query(0, ge=0)
 ):
-    # Construct the full path based on the base directory and provided path
-    path = server_base_dir / Path(directory_path)
+    path = server_base_dir / Path(directory)
     
     if not path.is_dir():
         raise HTTPException(status_code=404, detail="Directory not found")
     
-    # List files and directories
     all_files = [str(f.relative_to(server_base_dir)) for f in path.iterdir() if f.is_file()]
     all_dirs = [str(d.relative_to(server_base_dir)) for d in path.iterdir() if d.is_dir()]
     
-    # Combine files and directories
     combined_list = all_files + all_dirs
     
     # Apply pagination

@@ -3,3 +3,5 @@ audiobooks/
 music/
 audiobooks-library/
 
+__pycache__/
+*.pyc
