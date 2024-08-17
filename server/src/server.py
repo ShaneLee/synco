@@ -12,7 +12,7 @@ class WriteFileRequest(BaseModel):
     file_path: str
     content: str
 
-@app.post("/write")
+@app.post("/upload")
 async def write_file(request: WriteFileRequest):
     file_path = server_base_dir / request.file_path
     file_path.parent.mkdir(parents=True, exist_ok=True)
