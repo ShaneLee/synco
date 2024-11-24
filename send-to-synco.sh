@@ -37,10 +37,18 @@ function generic_sync {
   local type=$1 # e.g audiobooks
   # -a (archive): This option preserves the permissions, timestamps, symbolic links, and other file attributes.
   # -v (verbose): This option shows the progress of the operation.
+  # -u: ignore files that haven't changed
   # --ignore-existing: This option ensures that existing files on the server will not be overwritten. Only files that don't exist on the server will be copied.
   rsync -av --ignore-existing "$HOME/synco/$type/" shane@$NIGHTINGALE:~/synco/$type/
+}
+
+function media_sync {
+  # rsync -av --ignore-existing "$HOME/synco/media/" shane@$NIGHTINGALE:~/typhon/media/
+  rsync -av --ignore-existing "$HOME/synco/media/videos" shane@$NIGHTINGALE:/mnt/typhon/media/
+  rsync -av --ignore-existing "$HOME/synco/media/music" shane@$NIGHTINGALE:/mnt/typhon/music/
 }
 
 books
 generic_sync "audiobooks"
 generic_sync "music"
+media_sync
