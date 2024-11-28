@@ -44,8 +44,9 @@ function generic_sync {
 
 function media_sync {
   # rsync -av --ignore-existing "$HOME/synco/media/" shane@$NIGHTINGALE:~/typhon/media/
-  rsync -av --ignore-existing "$HOME/synco/media/videos" shane@$NIGHTINGALE:/mnt/typhon/media/
-  rsync -av --ignore-existing "$HOME/synco/media/music" shane@$NIGHTINGALE:/mnt/typhon/music/
+  rsync -av --ignore-existing "$HOME/synco/media/films/" shane@$NIGHTINGALE:/mnt/typhon/media/films
+  rsync -av --ignore-existing "$HOME/synco/media/tv/" shane@$NIGHTINGALE:/mnt/typhon/media/tv
+  rsync -av --ignore-existing "$HOME/synco/media/music" shane@$NIGHTINGALE:/mnt/typhon/music
 }
 
 books
